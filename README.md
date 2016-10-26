@@ -1,4 +1,4 @@
-# microbit-dal
+# microbit-dal adjusted for build with mbed SDK
 
 The core set of drivers, mechanisms and types that make up the micro:bit runtime.
 
