@@ -64,12 +64,20 @@ DEALINGS IN THE SOFTWARE.
 
 // Amount of memory reserved for the stack at the end of memory (bytes).
 #ifndef MICROBIT_STACK_SIZE
-#define MICROBIT_STACK_SIZE                     2048
+  #ifdef MBED_CONF_RTOS_PRESENT
+  #define MICROBIT_STACK_SIZE                     ISR_STACK_SIZE
+  #else
+  #define MICROBIT_STACK_SIZE                     2048
+  #endif
 #endif
 
 // Physical address of the end of mbed heap space.
 #ifndef MICROBIT_HEAP_END
-#define MICROBIT_HEAP_END                       (CORTEX_M0_STACK_BASE - MICROBIT_STACK_SIZE)
+  #ifdef MBED_CONF_RTOS_PRESENT
+  #define MICROBIT_HEAP_END                       (MICROBIT_SRAM_END - MICROBIT_STACK_SIZE)
+  #else
+  #define MICROBIT_HEAP_END                       (CORTEX_M0_STACK_BASE - MICROBIT_STACK_SIZE)
+  #endif
 #endif
 
 // Defines the size of a physical FLASH page in RAM.
